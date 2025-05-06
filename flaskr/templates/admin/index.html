@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Wszystkie posty</h1>
+  <ul>
+    {% for post in posts %}
+      <li>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.body }}</p>
+        
+        {% if g.user and g.user['is_admin'] %}
+          <form method="post" action="{{ url_for('admin.delete_post', post_id=post.id) }}">
+            <input type="submit" value="Usuń post" onclick="return confirm('Na pewno usunąć ten post?');">
+          </form>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
